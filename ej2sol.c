@@ -55,3 +55,35 @@ void atenderCliente(clientSock)
 
     clientSock.close();
 }
+
+void cliente()
+{
+    int master = socket.tcp();
+    client, err = master.connect(IP_SERVER, 8081);
+    msg[1] = "ECHO texto a replicar ….\n";
+    msg[2] = "EXIT \n";
+    if (!(client, err == NULL, failure))
+    {
+        for (i = 1 to i = 2)
+        {
+            stream = msg[i];
+            remain = "";
+            do
+            {
+                remain, err = client.send(stream);
+                if (err == "closed")
+                    client.close();
+                return;
+                stream = remain;
+            } while (remain != "");
+
+            do
+            {
+                data, err = client.receive();
+                respuesta += data;
+            }
+            while (!(err == "closed" || find(respuesta, '\n')) //recibí
+        }
+    }
+    client.close();
+}
