@@ -20,32 +20,38 @@ void atenderCliente(clientSock)
     while (!exit)
     {
         command = "";
-        repeat
-            data,
-            err = clientSock.receive(); //recibo el stream del cliente
-        command += data;
- until ((err == 'closed') || (find(command, '\n')) //recibí el
-comando completo
- if (err == 'closed' || data = ""){
+        do
+        {
+            data, err = clientSock.receive(); //recibo el stream del cliente
+            command += data;
+        } while (!((err == "closed") || (find(command, '\n'))) //recibí el
+
+        if (err == "closed" || data = "") {
             clientSock.close();
             return;
- }
- //Armo la respuesta dependiendo del comando
- if (find(command, 'ECHO')){
+        }
+        //Armo la respuesta dependiendo del comando
+        if (find(command, 'ECHO')) {
             stream = remove(command, "ECHO")
- }
- else {
+        } else {
             ip, port = clientSock.getPeer();
             stream = "CLOSE " + ip;
             exit = true;
- }
-//envío la respuesta por la conexión
- repeat
- remain, err = clientSock.send(stream)
- if (err == 'closed')
- clientSock.close();
- return;
- stream = remain;
- until remain == ""
+        }
+
+        do
+        {
+            remain, err = clientSock.send(stream)
+
+                              if (err == "closed")
+            {
+                clientSock.close();
+                return;
+            }
+
+            stream = remain;
+        } while (!remain == "")
     }
+
     clientSock.close();
+}
